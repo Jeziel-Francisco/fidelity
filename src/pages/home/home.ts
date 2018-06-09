@@ -11,7 +11,8 @@ import { UserProvider } from '../../providers/user/user';
 export class HomePage {
 
   params = {
-    title: 'Inicio'
+    title: 'Inicio',
+    menu: true
   };
 
   constructor(
@@ -20,11 +21,15 @@ export class HomePage {
     private userProvider: UserProvider
   ) {
   }
-  ionViewCanEnter(): boolean {
-    return true;
+  async ionViewCanEnter() {
+    try {
+      await this.userProvider.authenticated();
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
   ionViewDidLoad() {
-    this.userProvider.authenticated().then((user) => console.log(user));
   }
 
 }

@@ -1,17 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
+import { UserProvider } from '../../providers/user/user';
+import { App, Nav, NavController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  tab1Root = 'HomePage';
+  nav: NavController;
 
-  constructor() {
+  constructor(
+    private app: App,
+    private userProvider: UserProvider,
+  ) {
+    this.nav = this.app.getActiveNav();
+  }
 
+  async ionViewDidLoad() {
+    try {
+      await this.userProvider.authenticated();
+    } catch (error) {
+      this.nav.setRoot('SigninPage');
+    }
   }
 }

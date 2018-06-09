@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { IUser } from '../../models/user.interface';
 
 import { UserProvider } from '../../providers/user/user';
+
+import { TabsPage } from '../tabs/tabs';
 
 
 @IonicPage()
@@ -30,14 +32,14 @@ export class SigninPage {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit() {
     let user: IUser = this.signinForm.value;
 
     try {
-      this.userProvider.signin(user);
-      this.navCtrl.setRoot('HomePage'); 
+      await this.userProvider.signin(user);
+      this.navCtrl.setRoot(TabsPage);
     } catch (error) {
-      
+      console.log(error);
     }
   }
 

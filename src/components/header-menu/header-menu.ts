@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { App, NavController } from 'ionic-angular';
 
 import { UserProvider } from '../../providers/user/user';
 
@@ -9,19 +10,17 @@ import { UserProvider } from '../../providers/user/user';
 export class HeaderMenuComponent {
 
   @Input() params: any = {
-    title: ''
+    title: '',
+    menu: false
   };
 
-  constructor(
-    private userProvider: UserProvider
-  ) { }
+  nav: NavController;
 
-  logout(): void {
-    try {
-      this.userProvider.logout();
-    } catch (error) {
-      console.log(error);
-    }
+  constructor(
+    private userProvider: UserProvider,
+    private app: App
+  ) {
+    this.nav = this.app.getActiveNav();
   }
 
 }

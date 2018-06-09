@@ -3,6 +3,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { IUser } from '../../models/user.interface';
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import 'rxjs/add/operator/map';
+
+import * as firebase from 'firebase';
+
 @Injectable()
 export class UserProvider {
 
@@ -14,7 +18,7 @@ export class UserProvider {
 
   async create(user: IUser) {
     delete user.password;
-    return await this.afdatabase.list(`/users`).set(user._id, user);
+    return await this.afdatabase.list(`/users`).set(user.uid, user);
   }
 
   createAuth(user: IUser): Promise<any> {
@@ -29,8 +33,20 @@ export class UserProvider {
     return await this.afauth.auth.signOut();
   }
 
-  authenticated() {
-    return this.afauth.auth.sendPasswordResetEmail('jeziel.franciscodasilva@gmail.com');
+  authenticated(): Promise<boolean> {
+    return new Promise((resolve, reject) =>
+      this.afauth
+        .authState
+        .first()
+        .subscribe(
+          (user) => (user !== null) ? resolve(true) : reject(false),
+          (error) => reject(false)));
+
+  }
+
+  updatePassword(){
+    let user:firebase.User = this.afauth.auth.currentUser;
+    this.afauth.auth.sendPasswordResetEmail(user.email);
   }
 
 }

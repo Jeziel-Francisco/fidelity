@@ -1,1 +1,19 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="myContet" swipeEnabled="false">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Fidely</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list>
+            <button ion-item *ngFor="let item of pages" (click)="onPage(item)" menuClose> {{item.title}}</button>
+        </ion-list>
+    </ion-content>
+    <ion-footer>
+        <ion-list>
+            <button ion-item color="danger" (click)="logout()" menuClose> Sair </button>
+        </ion-list>
+    </ion-footer>
+</ion-menu>
+<ion-nav #myContet [root]="rootPage"></ion-nav>

@@ -34,14 +34,16 @@ export class SignupPage implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  async onSubmit() {
     let user: IUser = this.signupForm.value;
-    this.userProvider
-      .createAuth(user)
-      .then((auth: any) => {
-        user._id = auth.user.uid;
-        this.userProvider.create(user);
-      });
+    try {
+      let auth = await this.userProvider.createAuth(user)
+      user.uid = auth.user.uid;
+      await this.userProvider.create(user);
+      this.navCtrl.setRoot('HomePage');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }
