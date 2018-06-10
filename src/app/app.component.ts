@@ -21,9 +21,7 @@ export class MyApp {
     private userProvider: UserProvider
   ) {
     this.pages = [
-      { title: 'Inicio', component: 'HomePage' },
-      { title: 'Promoções', component: 'HomePage' },
-      { title: 'Configurações', component: 'HomePage' }
+      { title: 'Configurações', component: 'SettingsPage' }
     ];
 
     platform.ready().then(() => {

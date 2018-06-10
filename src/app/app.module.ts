@@ -15,6 +15,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { CONFIG } from './CONFIG';
 
 import { HomePageModule } from '../pages/home/home.module';
+import { SettingsPageModule } from '../pages/settings/settings.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
 
@@ -32,6 +33,7 @@ import { UserProvider } from '../providers/user/user';
     BrowserModule,
     HomePageModule,
     IonicModule.forRoot(MyApp),
+    SettingsPageModule,
     SigninPageModule,
     SignupPageModule
   ],

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { IUser } from '../../models/user.interface';
 
 import { UserProvider } from '../../providers/user/user';
-import { IUser } from '../../models/user.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { TabsPage } from '../tabs/tabs';
 
 
 @IonicPage()
@@ -28,6 +31,7 @@ export class SignupPage implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       federalId: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
+      phone: ['', Validators.compose([Validators.required])],
     });
   }
 
@@ -40,7 +44,7 @@ export class SignupPage implements OnInit {
       let auth = await this.userProvider.createAuth(user)
       user.uid = auth.user.uid;
       await this.userProvider.create(user);
-      this.navCtrl.setRoot('HomePage');
+      this.navCtrl.setRoot(TabsPage);
     } catch (error) {
       console.log(error);
     }

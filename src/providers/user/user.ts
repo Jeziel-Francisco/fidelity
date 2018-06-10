@@ -17,6 +17,7 @@ export class UserProvider {
 
 
   async create(user: IUser) {
+
     delete user.password;
     return await this.afdatabase.list(`/users`).set(user.uid, user);
   }
@@ -44,9 +45,13 @@ export class UserProvider {
 
   }
 
-  updatePassword(){
-    let user:firebase.User = this.afauth.auth.currentUser;
-    this.afauth.auth.sendPasswordResetEmail(user.email);
+  async updatePassword(password: string) { // Alterar Senha 
+    let user: firebase.User = this.afauth.auth.currentUser;
+    return await user.updatePassword(password);
+  }
+
+  async forgetPassword(email: string) {   // Esqueci minha Senha
+    return await this.afauth.auth.sendPasswordResetEmail(email);
   }
 
 }

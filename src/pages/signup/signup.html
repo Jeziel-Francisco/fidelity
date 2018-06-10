@@ -34,6 +34,11 @@
       <ion-input type="number" placeholder="CPF" formControlName="federalId"></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-icon name="call" item-left></ion-icon>
+      <ion-input type="tel" placeholder="Telefone" formControlName="phone"></ion-input>
+    </ion-item>
+
     <br>
 
     <button ion-button full type="submit" [disabled]="signupForm.invalid"> Cadastrar Usuario</button>

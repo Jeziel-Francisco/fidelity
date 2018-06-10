@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -45,5 +45,13 @@ export class SigninPage {
 
   signup(): void {
     this.navCtrl.push('SignupPage');
+  }
+
+  async forget() {
+    if (this.signinForm.value.email.length > 1) {
+      await this.userProvider.forgetPassword(this.signinForm.value.email);
+    } else {
+      alert('peencha o email!');
+    }
   }
 }

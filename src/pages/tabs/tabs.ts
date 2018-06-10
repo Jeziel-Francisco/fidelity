@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { UserProvider } from '../../providers/user/user';
-import { App, Nav, NavController } from 'ionic-angular';
+import { App, NavController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'tabs.html'

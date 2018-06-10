@@ -21,7 +21,9 @@
   </form>
   <br>
 
-  <button ion-button full type="button" outline color="danger" [disabled]="!signinForm.invalid" (click)="signup()"> Cadastrar</button>
+  <!-- <button ion-button full type="button" outline color="danger" [disabled]="!signinForm.invalid" (click)="signup()"> Cadastrar</button> -->
+  <a ion-button (click)="signup()" > Cadastrar</a>
+  <a ion-button (click)="forget()"> Esqueci minha senha?</a>
 
 
 </ion-content>
