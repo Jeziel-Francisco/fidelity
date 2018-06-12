@@ -6,6 +6,7 @@
     </ion-header>
 
     <ion-content>
+        <user-info [currentUser]="currentUser" [isMenu]="true"></user-info>
         <ion-list>
             <button ion-item *ngFor="let item of pages" (click)="onPage(item)" menuClose> {{item.title}}</button>
         </ion-list>

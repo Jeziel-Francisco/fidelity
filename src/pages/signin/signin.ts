@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { IUser } from '../../models/user.interface';
 
-import { UserProvider } from '../../providers/user/user';
+import { AuthProvider } from '../../providers/auth/auth';
 
 import { TabsPage } from '../tabs/tabs';
 
@@ -22,7 +22,7 @@ export class SigninPage {
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private navParams: NavParams,
-    private userProvider: UserProvider
+    private authProvider: AuthProvider
   ) {
     let emailRegex = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 
@@ -36,7 +36,7 @@ export class SigninPage {
     let user: IUser = this.signinForm.value;
 
     try {
-      await this.userProvider.signin(user);
+      await this.authProvider.signin(user);
       this.navCtrl.setRoot(TabsPage);
     } catch (error) {
       console.log(error);
@@ -49,7 +49,7 @@ export class SigninPage {
 
   async forget() {
     if (this.signinForm.value.email.length > 1) {
-      await this.userProvider.forgetPassword(this.signinForm.value.email);
+      await this.authProvider.forgetPassword(this.signinForm.value.email);
     } else {
       alert('peencha o email!');
     }

@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { CONFIG } from './CONFIG';
 
@@ -19,7 +20,10 @@ import { SettingsPageModule } from '../pages/settings/settings.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
 import { SignupPageModule } from '../pages/signup/signup.module';
 
+import { ComponentsModule } from '../components/components.module';
+
 import { UserProvider } from '../providers/user/user';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,8 @@ import { UserProvider } from '../providers/user/user';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(CONFIG),
+    ComponentsModule,
+    AngularFireStorageModule,
     BrowserModule,
     HomePageModule,
     IonicModule.forRoot(MyApp),
@@ -44,10 +50,12 @@ import { UserProvider } from '../providers/user/user';
   ],
   providers: [
     AngularFireDatabase,
+    AuthProvider,
     StatusBar,
     SplashScreen,
+    UserProvider,
+
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    UserProvider
   ]
 })
 export class AppModule { }

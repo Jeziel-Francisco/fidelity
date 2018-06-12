@@ -3,6 +3,6 @@ export const CONFIG = {
     authDomain: "fidely-18683.firebaseapp.com",
     databaseURL: "https://fidely-18683.firebaseio.com",
     projectId: "fidely-18683",
-    storageBucket: "",
+    storageBucket: "fidely-18683.appspot.com",
     messagingSenderId: "635388127872"
 }

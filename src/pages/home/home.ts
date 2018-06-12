@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { UserProvider } from '../../providers/user/user';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
 @Component({
@@ -18,12 +18,12 @@ export class HomePage {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private userProvider: UserProvider
+    private authProvider: AuthProvider
   ) {
   }
   async ionViewCanEnter() {
     try {
-      await this.userProvider.authenticated();
+      await this.authProvider.authenticated();
       return true;
     } catch (error) {
       return false;

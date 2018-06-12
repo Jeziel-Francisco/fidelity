@@ -1,0 +1,45 @@
+<ion-header>
+  <header-title [params]="params"></header-title>
+</ion-header>
+
+
+<ion-content padding>
+  <user-info [currentUser]="currentUser" [isMenu]="false"></user-info>
+
+  <button block ion-button color="primary" (click)="edit()" *ngIf="!status">Editar</button>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit(); $event.preventDefault()" *ngIf="status">
+
+    <ion-item>
+      <ion-icon name="person" item-left></ion-icon>
+      <ion-input type="text" placeholder="Nome" formControlName="firstName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="person" item-left></ion-icon>
+      <ion-input type="text" placeholder="Sobrenome" formControlName="lastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="contact" item-left></ion-icon>
+      <ion-input type="text" placeholder="Nome Usuario" formControlName="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="call" item-left></ion-icon>
+      <ion-input type="tel" placeholder="Telefone" formControlName="phone"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-icon name="image" item-left></ion-icon>
+      <input type="file" (change)="onPhoto($event)">
+    </ion-item>
+
+    <br>
+
+    <button ion-button full type="submit" [disabled]="profileForm.invalid">Alterar Usuario</button>
+
+  </form>
+
+</ion-content>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { UserProvider } from '../../providers/user/user';
+import { AuthProvider } from '../../providers/auth/auth';
+
 import { App, NavController } from 'ionic-angular';
 
 @Component({
@@ -13,14 +14,14 @@ export class TabsPage {
 
   constructor(
     private app: App,
-    private userProvider: UserProvider,
+    private authProvider: AuthProvider,
   ) {
     this.nav = this.app.getActiveNav();
   }
 
   async ionViewDidLoad() {
     try {
-      await this.userProvider.authenticated();
+      await this.authProvider.authenticated();
     } catch (error) {
       this.nav.setRoot('SigninPage');
     }

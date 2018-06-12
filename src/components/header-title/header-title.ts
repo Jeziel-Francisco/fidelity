@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { App, NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'header-menu',
-  templateUrl: 'header-menu.html'
+  selector: 'header-title',
+  templateUrl: 'header-title.html'
 })
-export class HeaderMenuComponent {
+export class HeaderTitleComponent {
 
   @Input() params: any = {
     title: '',

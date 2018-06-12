@@ -1,57 +1,40 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { IUser } from '../../models/user.interface';
+
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireStorage } from 'angularfire2/storage';
 
 import 'rxjs/add/operator/map';
 
-import * as firebase from 'firebase';
+import { IUser } from '../../models/user.interface';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserProvider {
 
   constructor(
-    private afauth: AngularFireAuth,
-    private afdatabase: AngularFireDatabase
+    private database: AngularFireDatabase,
+    private storage: AngularFireStorage
   ) { }
 
 
   async create(user: IUser) {
 
     delete user.password;
-    return await this.afdatabase.list(`/users`).set(user.uid, user);
+    return await this.database.list(`/users`).set(user.uid, user);
   }
 
-  createAuth(user: IUser): Promise<any> {
-    return this.afauth.auth.createUserWithEmailAndPassword(user.email, user.password);
+  uploadPhoto(file: File, userId: string) {
+    let ref = this.storage.ref(`/users/${userId}`);
+    return ref.put(file);
   }
 
-  async signin(user: IUser) {
-    return await this.afauth.auth.signInWithEmailAndPassword(user.email, user.password);
+  async update(user: IUser, uid: string) {
+    this.database.list(`/users`).update(uid, user);
   }
 
-  async logout(): Promise<any> {
-    return await this.afauth.auth.signOut();
+  findById(uid: string): Observable<{}[]> {
+    return this.database.list(`/users`, (ref) => ref.orderByChild('uid').equalTo(uid)).valueChanges();
   }
 
-  authenticated(): Promise<boolean> {
-    return new Promise((resolve, reject) =>
-      this.afauth
-        .authState
-        .first()
-        .subscribe(
-          (user) => (user !== null) ? resolve(true) : reject(false),
-          (error) => reject(false)));
-
-  }
-
-  async updatePassword(password: string) { // Alterar Senha 
-    let user: firebase.User = this.afauth.auth.currentUser;
-    return await user.updatePassword(password);
-  }
-
-  async forgetPassword(email: string) {   // Esqueci minha Senha
-    return await this.afauth.auth.sendPasswordResetEmail(email);
-  }
 
 }

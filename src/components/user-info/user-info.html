@@ -1,0 +1,8 @@
+<div *ngIf="currentUser" [ngClass]="{'custom-background':isMenu}">
+  <ion-avatar>
+    <img class="round" [src]="currentUser.photo || 'assets/imgs/no-photo.jpg'">
+  </ion-avatar>
+  <h2 text-center>{{currentUser.name}}</h2>
+  <p text-center>{{currentUser.email}}</p>
+
+</div>

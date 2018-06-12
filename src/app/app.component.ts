@@ -3,24 +3,34 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { UserProvider } from '../providers/user/user';
 import { TabsPage } from '../pages/tabs/tabs';
+import { User } from 'firebase';
+import { AuthProvider } from './../providers/auth/auth';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  rootPage: any = TabsPage;
   @ViewChild(Nav) nav: Nav;
-  pages = [];
-  rootPage: any = TabsPage;;
+
+  currentUser: User;
+  pages: any;
 
   constructor(
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    private userProvider: UserProvider
+    private authProvider: AuthProvider
   ) {
+    this.authProvider.authenticated()
+      .then(() => {
+        this.currentUser = this.authProvider.getCurrentUser();
+      })
+      .catch((isAuthenticate: boolean) => this.nav.setRoot('SigninPage'));
+
     this.pages = [
+      { title: 'Perfil', component: 'ProfilePage' },
       { title: 'Configurações', component: 'SettingsPage' }
     ];
 
@@ -32,13 +42,14 @@ export class MyApp {
     });
   }
 
+
   onPage(page): void {
     this.nav.push(page.component);
   }
 
-  logout(): void {
+  async logout() {
     try {
-      this.userProvider.logout();
+      await this.authProvider.logout();
       this.nav.setRoot('SigninPage');
     } catch (error) {
       console.log(error);
