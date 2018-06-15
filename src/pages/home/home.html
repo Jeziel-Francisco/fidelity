@@ -5,52 +5,29 @@
 </ion-header>
 
 
-<ion-content padding style="background-color:#36B1C2;">
+<ion-content padding style="background-color:rgb(105, 110, 111);">
   <ion-searchbar placeholder="Busca Empresas Geral"></ion-searchbar>
 
-  <ion-item text-wrap>
-    <ion-avatar item-left>
-      <img />
-    </ion-avatar>
-    <h2>Esquina do Herbie</h2>
-    <p>A Cada 5 cerveja a 6° é por nossa conta ! </p>
-    <ion-icon name="beaker" item-end color="warning"></ion-icon>
+  <ion-item text-wrap *ngFor="let company of companies">
+    <ion-thumbnail item-start>
+      <img [src]="'assets/imgs/logo.png'" />
+    </ion-thumbnail>
+    <h2>{{company.name}}</h2>
+    <p>{{company.fantasy}}</p>
+    <p item-end>
+      <ion-icon name="star" color="danger" item-start>
+        {{company.quantityRequired || 0 }} Pts
+      </ion-icon>
+    </p>
+
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
+    <ion-icon name="star" color="secondary"></ion-icon>
   </ion-item>
-
-  <ion-item text-wrap>
-    <ion-avatar item-left>
-      <img />
-    </ion-avatar>
-    <h2>Choperia/Pizzaria do outro lado</h2>
-    <p>A Cada 5 cerveja a 6° é por nossa conta ! </p>
-    <ion-icon name="beaker" item-end color="warning"></ion-icon>
-    <ion-icon name="pizza" item-end color="primary"></ion-icon>
-  </ion-item>
-
-  <h5 style="color:#0A0707;text-align:right;">Ultimas Empresas</h5>
-
-  <ion-list id="inicio-list10">
-    <ion-searchbar placeholder="Busca Empresa Participante"></ion-searchbar>
-
-    <ion-item text-wrap>
-      <ion-avatar item-left>
-        <img />
-      </ion-avatar>
-      <h2 color="secondary">Salão do Lino</h2>
-      <p>Parabens ganhou corte de cabelo Masculino</p>
-      <ion-icon name="eye" item-end color="secondary"></ion-icon>
-    </ion-item>
-
-    <ion-item id="inicio-list-item12">
-      <ion-avatar item-left>
-        <img />
-      </ion-avatar>
-      <h2>Pizzaria LaBela</h2>
-      <p>Você possui 3/5 Estrelas</p>
-      <ion-icon name="pizza" item-end color="primary"></ion-icon>
-    </ion-item>
-  </ion-list>
-
-  <!-- <button ion-button (click)="email()"> EMAIL</button> -->
-
 </ion-content>

@@ -6,7 +6,8 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import 'rxjs/add/operator/map';
 
 import { IUser } from '../../models/user.interface';
-import { Observable } from 'rxjs';
+import * as firebase from 'firebase';
+import { Observable } from '@firebase/util';
 
 @Injectable()
 export class UserProvider {
@@ -28,12 +29,12 @@ export class UserProvider {
     return ref.put(file);
   }
 
-  async update(user: IUser, uid: string) {
-    this.database.list(`/users`).update(uid, user);
+  update(user: IUser, uid: string) {
+    return this.database.list(`/users`).update(uid, user);
   }
 
-  findById(uid: string): Observable<{}[]> {
-    return this.database.list(`/users`, (ref) => ref.orderByChild('uid').equalTo(uid)).valueChanges();
+  findById(uid: string) {
+    return this.database.object<IUser>(`/users/${uid}`).valueChanges();
   }
 
 

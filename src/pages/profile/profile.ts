@@ -20,6 +20,8 @@ export class ProfilePage implements OnInit {
   profileForm: FormGroup;
   status: boolean;
   user: IUser;
+  uploadProgress: number;
+
   private filePhoto: File;
 
   constructor(
@@ -38,12 +40,36 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  ionViewDidLoad() { }
+  ionViewDidLoad() {
+    this.userProvider.findById(this.currentUser.uid).first().subscribe((user: IUser) => {
+      this.profileForm.setValue({
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        username: user.username || '',
+        phone: user.phone || ''
+      });
+      this.user = user;
+    }, (error) => console.log(error));
+  }
 
   onSubmit() {
-    let uploadTask = this.userProvider.uploadPhoto(this.filePhoto, this.currentUser.uid);
+    let upload = this.userProvider.uploadPhoto(this.filePhoto, this.currentUser.uid);
+    upload.then((snapshot) => {
 
-    uploadTask.then((ok) => console.log(ok));
+      this.uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+
+      snapshot.ref.getDownloadURL().then(value => {
+        this.currentUser.updateProfile({
+          displayName: this.profileForm.value.username,
+          photoURL: value
+        }).then((log) => {
+          this.userProvider
+            .update(this.profileForm.value, this.user.uid)
+            .then(() => this.status = !this.status);
+        });
+        this.uploadProgress = 0;
+      });
+    });
   }
 
   ngOnInit() {
@@ -51,13 +77,10 @@ export class ProfilePage implements OnInit {
     this.currentUser = this.authProvider.getCurrentUser();
   }
 
-  edit() {
+  editProfile() {
     this.status = !this.status;
   }
 
-  updatedPhoto() {
-    console.log('Alterar Foto');
-  }
 
   onPhoto(file): void {
     this.filePhoto = file.target.files[0];

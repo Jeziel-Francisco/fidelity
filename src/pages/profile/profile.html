@@ -6,7 +6,7 @@
 <ion-content padding>
   <user-info [currentUser]="currentUser" [isMenu]="false"></user-info>
 
-  <button block ion-button color="primary" (click)="edit()" *ngIf="!status">Editar</button>
+  <button block ion-button color="primary" (click)="editProfile()" *ngIf="!status">Editar Perfil</button>
 
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit(); $event.preventDefault()" *ngIf="status">
 
@@ -35,6 +35,8 @@
       <ion-icon name="image" item-left></ion-icon>
       <input type="file" (change)="onPhoto($event)">
     </ion-item>
+    
+    <progress-bar *ngIf="uploadProgress" [progress]="uploadProgress"></progress-bar>
 
     <br>
 
