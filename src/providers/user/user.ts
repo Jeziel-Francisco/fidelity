@@ -6,8 +6,6 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import 'rxjs/add/operator/map';
 
 import { IUser } from '../../models/user.interface';
-import * as firebase from 'firebase';
-import { Observable } from '@firebase/util';
 
 @Injectable()
 export class UserProvider {
@@ -19,18 +17,18 @@ export class UserProvider {
 
 
   async create(user: IUser) {
-
     delete user.password;
     return await this.database.list(`/users`).set(user.uid, user);
   }
 
   uploadPhoto(file: File, userId: string) {
-    let ref = this.storage.ref(`/users/${userId}`);
-    return ref.put(file);
+    return this.storage
+      .ref(`/users/${userId}`)
+      .put(file);
   }
 
   update(user: IUser, uid: string) {
-    return this.database.list(`/users`).update(uid, user);
+    return this.database.list(`/users`).set(uid, user);
   }
 
   findById(uid: string) {

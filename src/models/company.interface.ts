@@ -16,6 +16,8 @@ export interface ICompany {
     photos?: [
         { description?: string, url?: string, date?: Date }
     ];
+    dateRegistration?: Date;
+    logoUrl?: string;
     evaluation?: number;
     users?: [IUser];
 }

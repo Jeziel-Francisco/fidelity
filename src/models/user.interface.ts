@@ -9,8 +9,7 @@ export interface IUser {
     password?: string;
     federalId?: string;
     phone?: string;
-    photos?: [
-        { description?: string; url?: string; date?: Date }
-    ];
+    photourl?: string;
+    photoDate?: Date;
     companies?: [ICompany];
 }

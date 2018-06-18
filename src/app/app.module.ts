@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -15,6 +16,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { CONFIG } from './CONFIG';
 
+import { ExplorePageModule } from '../pages/explore/explore.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { SigninPageModule } from '../pages/signin/signin.module';
@@ -37,6 +39,7 @@ import { AuthProvider } from '../providers/auth/auth';
     ComponentsModule,
     AngularFireStorageModule,
     BrowserModule,
+    ExplorePageModule,
     HomePageModule,
     IonicModule.forRoot(MyApp),
     SettingsPageModule,

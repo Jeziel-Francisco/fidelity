@@ -6,6 +6,9 @@
 
 
 <ion-content padding style="background-color:rgb(105, 110, 111);">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="refresh" refreshingSpinner="circles" refreshingText="Atualizando ...."></ion-refresher-content>
+  </ion-refresher>
   <ion-searchbar placeholder="Busca Empresas Geral"></ion-searchbar>
 
   <ion-item text-wrap *ngFor="let company of companies">

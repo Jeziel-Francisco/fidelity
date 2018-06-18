@@ -53,23 +53,27 @@ export class ProfilePage implements OnInit {
   }
 
   onSubmit() {
-    let upload = this.userProvider.uploadPhoto(this.filePhoto, this.currentUser.uid);
-    upload.then((snapshot) => {
+    // this.uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    this.user = {
+      firstName: this.profileForm.value.firstName,
+      lastName: this.profileForm.value.lastName,
+      username: this.profileForm.value.username,
+      phone: this.profileForm.value.phone
+    };
 
-      this.uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-
-      snapshot.ref.getDownloadURL().then(value => {
-        this.currentUser.updateProfile({
-          displayName: this.profileForm.value.username,
-          photoURL: value
-        }).then((log) => {
-          this.userProvider
-            .update(this.profileForm.value, this.user.uid)
-            .then(() => this.status = !this.status);
+    if (!this.filePhoto) {
+      this.updateUser(this.user, { displayName: this.user.username, photoURL: this.currentUser.photoURL });
+    } else {
+      this.userProvider
+        .uploadPhoto(this.filePhoto, this.currentUser.uid)
+        .then((snapshot) => {
+          snapshot.ref.getDownloadURL().then(photoUrl => {
+            this.user.photourl = photoUrl;
+            this.user.photoDate = new Date();
+            this.updateUser(this.user, { displayName: this.user.username, photoURL: photoUrl });
+          });
         });
-        this.uploadProgress = 0;
-      });
-    });
+    }
   }
 
   ngOnInit() {
@@ -81,9 +85,22 @@ export class ProfilePage implements OnInit {
     this.status = !this.status;
   }
 
-
   onPhoto(file): void {
     this.filePhoto = file.target.files[0];
+  }
+
+  updateUser(user: IUser, userProfile: { displayName: string, photoURL: string }) {
+    this.authProvider.
+      updateAuth(userProfile)
+      .then(
+        () =>
+          this.userProvider
+            .update(user, user.uid)
+            .then(
+              () =>
+                this.status = !this.status
+            )
+      );
   }
 
 }

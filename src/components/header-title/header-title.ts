@@ -17,7 +17,7 @@ export class HeaderTitleComponent {
   constructor(
     private app: App
   ) {
-    this.nav = this.app.getActiveNav();
+    this.nav = this.app.getActiveNavs()[0];
   }
 
 }

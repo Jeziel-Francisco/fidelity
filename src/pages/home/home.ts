@@ -125,4 +125,10 @@ export class HomePage implements OnInit {
       }
     ]
   }
+
+  doRefresh(refresher) {
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
+  }
 }

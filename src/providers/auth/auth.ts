@@ -35,12 +35,8 @@ export class AuthProvider {
     return this.auth.auth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
-  updateAuth(user: IUser, url:string) {
-    let currentUser = this.auth.auth.currentUser;
-    return currentUser.updateProfile({
-      displayName:'',
-      photoURL:url
-    });
+  updateAuth(user: { displayName: string, photoURL: string }) {
+    return this.auth.auth.currentUser.updateProfile(user);
   }
 
   async signin(user: IUser) {

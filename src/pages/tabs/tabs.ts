@@ -10,13 +10,14 @@ import { App, NavController } from 'ionic-angular';
 export class TabsPage {
 
   tab1Root = 'HomePage';
+  tab2Root = 'ExplorePage'
   nav: NavController;
 
   constructor(
     private app: App,
     private authProvider: AuthProvider,
   ) {
-    this.nav = this.app.getActiveNav();
+    this.nav = this.app.getActiveNavs()[0];
   }
 
   async ionViewDidLoad() {
