@@ -2,6 +2,10 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
+import { Geolocation } from '@ionic-native/geolocation';
+
+import { IonicStorageModule } from '@ionic/storage';
+
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -42,6 +46,7 @@ import { AuthProvider } from '../providers/auth/auth';
     ExplorePageModule,
     HomePageModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({ name: '__mydb', driverOrder: ['indexeddb', 'sqlite', 'websql'] }),
     SettingsPageModule,
     SigninPageModule,
     SignupPageModule
@@ -54,6 +59,7 @@ import { AuthProvider } from '../providers/auth/auth';
   providers: [
     AngularFireDatabase,
     AuthProvider,
+    Geolocation,
     StatusBar,
     SplashScreen,
     UserProvider,
