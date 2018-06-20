@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
-
-import { ICompany } from '../../models/company.interface';
 
 @IonicPage()
 @Component({
@@ -20,8 +18,6 @@ export class HomePage implements OnInit {
   };
 
   constructor(
-    private navCtrl: NavController,
-    private navParams: NavParams,
     private authProvider: AuthProvider
   ) {
   }

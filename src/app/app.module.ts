@@ -1,8 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-
-import { Geolocation } from '@ionic-native/geolocation';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -20,16 +18,9 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { CONFIG } from './CONFIG';
 
-import { ExplorePageModule } from '../pages/explore/explore.module';
-import { HomePageModule } from '../pages/home/home.module';
-import { SettingsPageModule } from '../pages/settings/settings.module';
-import { SigninPageModule } from '../pages/signin/signin.module';
-import { SignupPageModule } from '../pages/signup/signup.module';
+import { AuthProvider } from '../providers/auth/auth';
 
 import { ComponentsModule } from '../components/components.module';
-
-import { UserProvider } from '../providers/user/user';
-import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -40,16 +31,11 @@ import { AuthProvider } from '../providers/auth/auth';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(CONFIG),
-    ComponentsModule,
     AngularFireStorageModule,
-    BrowserModule,
-    ExplorePageModule,
-    HomePageModule,
+    ComponentsModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot({ name: '__mydb', driverOrder: ['indexeddb', 'sqlite', 'websql'] }),
-    SettingsPageModule,
-    SigninPageModule,
-    SignupPageModule
+    BrowserModule,
+    IonicStorageModule.forRoot({ name: '__mydb', driverOrder: ['indexeddb', 'sqlite', 'websql'] })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,11 +45,8 @@ import { AuthProvider } from '../providers/auth/auth';
   providers: [
     AngularFireDatabase,
     AuthProvider,
-    Geolocation,
     StatusBar,
     SplashScreen,
-    UserProvider,
-
     { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
 })

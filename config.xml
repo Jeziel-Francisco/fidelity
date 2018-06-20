@@ -86,4 +86,10 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.3.2" />
+    <plugin name="cordova-plugin-googlemaps" spec="git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBC_pYXmM2NZKPQ6NkP0KJpSxGCNXh7nlY" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyBC_pYXmM2NZKPQ6NkP0KJpSxGCNXh7nlY" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="26.1.0" />
+    </plugin>
 </widget>

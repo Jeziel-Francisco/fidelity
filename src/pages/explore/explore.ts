@@ -3,8 +3,13 @@ import { IonicPage, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 
-
-declare var google;
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapOptions,
+  GoogleMapsEvent,
+  Marker
+} from '@ionic-native/google-maps'
 
 @IonicPage()
 @Component({
@@ -12,51 +17,57 @@ declare var google;
   templateUrl: 'explore.html',
 })
 export class ExplorePage {
-
-  @ViewChild('map') mapElemet: ElementRef;
-  map: any;
-
   params = { title: 'Explorar', menu: true }
 
+  map: GoogleMap;
+
   constructor(
-    private geolocation: Geolocation,
     private plt: Platform,
+    private geolocation: Geolocation,
     private storage: Storage
   ) {
   }
 
   ionViewDidLoad() {
     this.plt.ready().then(() => {
-      let mapOptions = {
-        zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullScreenControl: false
-      };
+      this.geolocation
+        .getCurrentPosition()
+        .then(pos => {
 
-      this.map = new google.maps.Map(this.mapElemet.nativeElement, mapOptions);
+          let mapOptios: GoogleMapOptions = {
+            camera: {
+              target: {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude
+              },
+              zoom: 18,
+              tilt: 30
+            }
+          };
 
-      this.geolocation.getCurrentPosition().then((pos) => {
-        let lating = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        this.map.setCenter(lating);
-        this.map.setZoom(15);
-        this.map = new google.maps.Marker({
-          position: { lat: pos.coords.latitude, lng: pos.coords.longitude },
-          zoom: 15,
-          map: this.map
+          this.map = GoogleMaps.create('map_canvas');
+          // let marker: Marker = this.map.addMarkerSync({
+          //   title: 'Ionic',
+          //   icon: 'blue',
+          //   animation: 'DROP',
+          //   position: {
+          //     lat: 43.0741904,
+          //     lng: -89.3809802
+          //   }
+          // });
+          // marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+          //   alert('clicked');
+          // });
         });
-        this.storage.set('map', JSON.stringify(this.map)).then(map => console.log(map)).catch(error => console.log(error));
-      });
+
     });
   }
 
   findMap() {
     this.storage.get('map')
       .then(map => {
-        this.map = map;
-        console.log(map);
       })
       .catch(error => console.log(error));
   }
 }
+// npm install --save @ionic-native/google-maps

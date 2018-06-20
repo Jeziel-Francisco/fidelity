@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { IUser } from '../../models/user.interface';
@@ -21,7 +21,6 @@ export class SigninPage {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private navParams: NavParams,
     private authProvider: AuthProvider
   ) {
     let emailRegex = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { IUser } from '../../models/user.interface';
@@ -23,7 +23,6 @@ export class SignupPage implements OnInit {
     private authProvider: AuthProvider,
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private navParams: NavParams,
     private userProvider: UserProvider,
 
   ) {

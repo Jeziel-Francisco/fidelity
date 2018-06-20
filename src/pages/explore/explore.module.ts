@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
-import { ExplorePage } from './explore';
+import { Geolocation } from '@ionic-native/geolocation';
+
+import { GoogleMaps } from '@ionic-native/google-maps';
+
+import { IonicStorageModule } from '@ionic/storage';
 
 import { ComponentsModule } from '../../components/components.module';
+
+import { ExplorePage } from './explore';
 
 @NgModule({
   declarations: [
@@ -11,7 +17,15 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(ExplorePage),
-    ComponentsModule
+    ComponentsModule,
+    IonicStorageModule.forRoot()
   ],
+  providers: [
+    Geolocation,
+    GoogleMaps
+  ],
+  exports: [
+    ExplorePage
+  ]
 })
 export class ExplorePageModule { }

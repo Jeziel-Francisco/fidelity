@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { User } from 'firebase';
 
 import { AuthProvider } from '../../providers/auth/auth';
+
 import { UserProvider } from '../../providers/user/user';
+
 import { IUser } from '../../models/user.interface';
 
 @IonicPage()
@@ -27,8 +29,6 @@ export class ProfilePage implements OnInit {
   constructor(
     private authProvider: AuthProvider,
     private formBuilder: FormBuilder,
-    private navCtrl: NavController,
-    private navParams: NavParams,
     private userProvider: UserProvider
   ) {
 

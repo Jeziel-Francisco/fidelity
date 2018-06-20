@@ -14,7 +14,7 @@ export class SettingsPage {
     menu: true
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor() {
   }
 
   ionViewDidLoad() {
